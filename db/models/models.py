@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Date
-from sqlalchemy.orm import relationship, declarative_base
-
-Base = declarative_base()
+from sqlalchemy.orm import relationship
+from db.base import Base  # <- Твоя головна декларативна база, не перезаписуй!
 
 class Group(Base):
     __tablename__ = 'groups'
@@ -37,6 +36,6 @@ class Grade(Base):
     student_id = Column(Integer, ForeignKey('students.id'))
     subject_id = Column(Integer, ForeignKey('subjects.id'))
     grade = Column(Integer, nullable=False)
-    date_of = Column(Date)
+    grade_date = Column(Date)  # Змінив назву з date_of на grade_date
     student = relationship('Student', back_populates='grades')
     subject = relationship('Subject', back_populates='grades')
